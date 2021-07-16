@@ -11,8 +11,9 @@ const savedCovers = [
 ];
 let homeView = document.querySelector('.home-view');
 let formView = document.querySelector('.form-view');
-
 let randCoverBtn = document.querySelector('.random-cover-button');
+let saveCoverBtn = document.querySelector('.save-cover-button');
+
 randCoverBtn.addEventListener('click', changeCover);
 
 let makeNewCoverBtn = document.querySelector('.make-new-button');
@@ -31,6 +32,8 @@ changeCover();
 function showNewCoverForm() {
   homeView.classList.add('hidden');
   formView.classList.remove('hidden');
+  randCoverBtn.classList.add('hidden');
+  saveCoverBtn.classList.add('hidden');
 }
 
 function getRandIndex(array) {
