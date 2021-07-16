@@ -1,18 +1,17 @@
-Thank you for pushing your code!
-
-What (if any) features are you implementing?
+### Features
 -
 
-What (if anything) did you refactor?
+### Refactors
 -
 
-Were there any issues that arose?
+### Issues and Technical Debt
 -
 
-Is there anything that you need from your teammate?
+### Team Actions Required
 -
 
-Any other comments, questions, or concerns?
+### Other Comments, Concerns, or Questions
+-
 
-Collaborators
-
+### Collaborators
+-
