@@ -14,11 +14,15 @@ let formView = document.querySelector('.form-view');
 let randCoverBtn = document.querySelector('.random-cover-button');
 let saveCoverBtn = document.querySelector('.save-cover-button');
 let homeBtn = document.querySelector('.home-button');
+let savedViewBtn = document.querySelector('.view-saved-button');
+let savedView = document.querySelector('.saved-view');
+let makeNewCoverBtn = document.querySelector('.make-new-button');
 
 randCoverBtn.addEventListener('click', changeCover);
 
-let makeNewCoverBtn = document.querySelector('.make-new-button');
 makeNewCoverBtn.addEventListener('click', showNewCoverForm);
+
+savedViewBtn.addEventListener('click', showSavedView);
 
 function changeCover() {
   newCover = new Cover(covers[getRandIndex(covers)], titles[getRandIndex(titles)], descriptors[getRandIndex(descriptors)], descriptors[getRandIndex(descriptors)]);
@@ -36,6 +40,12 @@ function showNewCoverForm() {
   randCoverBtn.classList.add('hidden');
   saveCoverBtn.classList.add('hidden');
   homeBtn.classList.remove('hidden');
+}
+
+function showSavedView() {
+  homeView.classList.add('hidden');
+  formView.classList.add('hidden');
+  savedView.classList.remove('hidden');
 
 }
 
