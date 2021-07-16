@@ -13,6 +13,9 @@ const savedCovers = [
 let randCoverBtn = document.querySelector('.rand-cover-button');
 randCoverBtn.addEventListener('click', changeCover);
 
+let makeNewCoverBtn = document.querySelector('.make-new-button');
+makeNewCoverBtn.addEventListener('click', showNewCoverForm);
+
 function changeCover() {
   newCover = new Cover(covers[getRandIndex(covers)], titles[getRandIndex(titles)], descriptors[getRandIndex(descriptors)], descriptors[getRandIndex(descriptors)]);
   cover.src = newCover.cover;
@@ -22,6 +25,10 @@ function changeCover() {
 }
 
 changeCover();
+
+function showNewCoverForm() {
+
+}
 
 function getRandIndex(array) {
   return Math.floor(Math.random() * array.length);
