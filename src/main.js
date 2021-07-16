@@ -18,6 +18,8 @@ let savedViewBtn = document.querySelector('.view-saved-button');
 let savedView = document.querySelector('.saved-view');
 let makeNewCoverBtn = document.querySelector('.make-new-button');
 
+homeBtn.addEventListener('click', showHomeView);
+
 randCoverBtn.addEventListener('click', changeCover);
 
 makeNewCoverBtn.addEventListener('click', showNewCoverForm);
@@ -34,6 +36,14 @@ function changeCover() {
 
 changeCover();
 
+function showHomeView() {
+  homeView.classList.remove('hidden');
+  homeBtn.classList.add('hidden');
+  saveCoverBtn.classList.remove('hidden');
+  makeNewCoverBtn.classList.remove('hidden');
+  randCoverBtn.classList.remove('hidden');
+}
+
 function showNewCoverForm() {
   homeView.classList.add('hidden');
   formView.classList.remove('hidden');
@@ -46,7 +56,9 @@ function showSavedView() {
   homeView.classList.add('hidden');
   formView.classList.add('hidden');
   savedView.classList.remove('hidden');
-
+  saveCoverBtn.classList.add('hidden');
+  randCoverBtn.classList.add('hidden');
+  homeBtn.classList.remove('hidden');
 }
 
 function getRandIndex(array) {
