@@ -68,18 +68,63 @@ function showSaved() {
 
   savedSection.innerHTML = "";
 
+  let eventListeners = [];
+
   for (let i = 0; i < savedCovers.length; i++) {
     savedSection.insertAdjacentHTML('beforeend', `
-      <span class="mini-cover">
-        <img class="cover-image mini-cover" src=${savedCovers[i].cover}>
-        <h2 class="cover-title">${savedCovers[i].title}</h2>
-        <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
-        <img class="price-tag" src="./assets/price.png">
-        <img class="overlay" src="./assets/overlay.png">
-      </span>
+      <button id=${savedCovers[i].id}>
+        <span class="mini-cover">
+          <img class="cover-image mini-cover" src=${savedCovers[i].cover}>
+          <h2 class="cover-title">${savedCovers[i].title}</h2>
+          <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+          <img class="price-tag" src="./assets/price.png">
+          <img class="overlay" src="./assets/overlay.png">
+        </span>
+      </button>
     `);
+
+    let currentCoverButton = document.getElementById(savedCovers[i].id);
+    let currentCoverButtonEventListener = currentCoverButton.addEventListener('dblclick', function() {savedSection.removeChild(currentCoverButton)});
+
+    eventListeners.push(currentCoverButtonEventListener);
+
+    //
+    // let bookToRemoveID = savedCovers[i].id;
+    // currentCoverButton.addEventListener('dblclick', )
+    //
+    // var currentSavedCover = document.getElementById(savedCovers[i].id);
+    // currentSavedCover.addEventListener('dblclick', function() {removeCover(currentSavedCover)});
   }
 }
+
+// var elem = document.getElementById('dummy');
+//     currentSavedCover.parentNode.removeChild(elem);
+//
+// function removeCover(currentSavedCover) {
+//   currentSavedCover.innerHTML = "";
+// }
+
+// function removeCover(currentSavedCover) {
+//   for (var i = 0; i < savedCovers.length; i++) {
+//     if (savedCovers[i].id === currentSavedCover.id) {
+//       savedCovers.splice(i, 1);
+//
+//       savedSection.innerHTML = "";
+//
+//       for (let i = 0; i < savedCovers.length; i++) {
+//         savedSection.insertAdjacentHTML('beforeend', `
+//             <span class="mini-cover">
+//               <img class="cover-image mini-cover" id=${savedCovers[i].id} src=${savedCovers[i].cover}>
+//               <h2 class="cover-title">${savedCovers[i].title}</h2>
+//               <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+//               <img class="price-tag" src="./assets/price.png">
+//               <img class="overlay" src="./assets/overlay.png">
+//             </span>
+//         `);
+//       }
+//     }
+//   }
+// }
 
 function showMake() {
   homeBtn.classList.remove('hidden');
