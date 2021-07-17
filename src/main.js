@@ -55,6 +55,7 @@ function showHome() {
   saveBtn.classList.remove('hidden');
   makeBtn.classList.remove('hidden');
   homeView.classList.remove('hidden');
+  savedView.classList.add('hidden');
 }
 
 function showSaved() {
@@ -84,17 +85,13 @@ function showSaved() {
   }
 }
 
-// box.innerHTML = `
-//   <h3>${pageData.title}</h3>
-//   <p>${pageData.body}</p>
-// `;
-
 function showMake() {
   homeBtn.classList.remove('hidden');
   randBtn.classList.add('hidden');
   saveBtn.classList.add('hidden');
   homeView.classList.add('hidden');
   makeView.classList.remove('hidden');
+  savedView.classList.add('hidden');
 }
 
 function createBook() {
