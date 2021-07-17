@@ -5,6 +5,7 @@ let tagline2 = document.querySelector('.tagline-2');
 
 let homeView = document.querySelector('.home-view');
 let savedView = document.querySelector('.saved-view');
+let savedSection = document.querySelector('.saved-covers-section');
 let makeView = document.querySelector('.form-view');
 
 let homeBtn = document.querySelector('.home-button');
@@ -23,19 +24,23 @@ const savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 
+let currentCover;
+
+window.addEventListener('load', randomizeCover);
 homeBtn.addEventListener('click', showHome);
 randBtn.addEventListener('click', randomizeCover);
-// saveBtn
+saveBtn.addEventListener('click', saveCover);
 savedBtn.addEventListener('click', showSaved);
 makeBtn.addEventListener('click', showMake);
 createBookBtn.addEventListener('click', createBook);
-window.addEventListener('load', randomizeCover);
 
 function randomizeCover() {
   let randCover = new Cover(
     covers[getRandIndex(covers)],
     titles[getRandIndex(titles)], descriptors[getRandIndex(descriptors)], descriptors[getRandIndex(descriptors)]
   );
+
+  currentCover = randCover;
 
   cover.src = randCover.cover;
   title.innerText = randCover.title;
@@ -50,6 +55,7 @@ function showHome() {
   saveBtn.classList.remove('hidden');
   makeBtn.classList.remove('hidden');
   homeView.classList.remove('hidden');
+  savedView.classList.add('hidden');
 }
 
 function showSaved() {
@@ -59,6 +65,20 @@ function showSaved() {
   homeView.classList.add('hidden');
   savedView.classList.remove('hidden');
   makeView.classList.add('hidden');
+
+  savedSection.innerHTML = "";
+
+  for (let i = 0; i < savedCovers.length; i++) {
+    savedSection.insertAdjacentHTML('beforeend', `
+      <span class="mini-cover">
+        <img class="cover-image mini-cover" src=${savedCovers[i].cover}>
+        <h2 class="cover-title">${savedCovers[i].title}</h2>
+        <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+        <img class="price-tag" src="./assets/price.png">
+        <img class="overlay" src="./assets/overlay.png">
+      </span>
+    `);
+  }
 }
 
 function showMake() {
@@ -67,6 +87,7 @@ function showMake() {
   saveBtn.classList.add('hidden');
   homeView.classList.add('hidden');
   makeView.classList.remove('hidden');
+  savedView.classList.add('hidden');
 }
 
 function createBook() {
@@ -83,12 +104,23 @@ function createBook() {
     descriptor2Field.value
   );
 
+  currentCover = customBook;
+
   showHome();
 
   cover.src = customBook.cover;
   title.innerText = customBook.title;
   tagline1.innerText = customBook.tagline1;
   tagline2.innerText = customBook.tagline2;
+}
+
+function saveCover() {
+  for (let i = 0; i < savedCovers.length; i++) {
+    if (currentCover.id === savedCovers[i].id) {
+      return;
+    }
+  }
+  savedCovers.push(currentCover);
 }
 
 function getRandIndex(array) {
