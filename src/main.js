@@ -5,6 +5,7 @@ let tagline2 = document.querySelector('.tagline-2');
 
 let homeView = document.querySelector('.home-view');
 let savedView = document.querySelector('.saved-view');
+let savedSection = document.querySelector('.saved-covers-section');
 let makeView = document.querySelector('.form-view');
 
 let homeBtn = document.querySelector('.home-button');
@@ -63,7 +64,24 @@ function showSaved() {
   homeView.classList.add('hidden');
   savedView.classList.remove('hidden');
   makeView.classList.add('hidden');
+
+  for (let i = 0; i < savedCovers.length; i++) {
+    savedSection.innerHTML = `
+      <section class="mini-cover">
+        <img class="cover-image mini-cover" src=${savedCovers[i].cover}>
+        <h2 class="cover-title">${savedCovers[i].title}</h2>
+        <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+        <img class="price-tag" src="./assets/price.png">
+        <img class="overlay" src="./assets/overlay.png">
+      </section>
+    `;
+  }
 }
+
+// box.innerHTML = `
+//   <h3>${pageData.title}</h3>
+//   <p>${pageData.body}</p>
+// `;
 
 function showMake() {
   homeBtn.classList.remove('hidden');
