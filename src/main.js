@@ -80,7 +80,15 @@ function createBook() {
     coverField.value,
     titleField.value,
     descriptor1Field.value,
-    descriptor2Field.value);
+    descriptor2Field.value
+  );
+
+  showHome();
+
+  cover.src = customBook.cover;
+  title.innerText = customBook.title;
+  tagline1.innerText = customBook.tagline1;
+  tagline2.innerText = customBook.tagline2;
 }
 
 function getRandIndex(array) {
