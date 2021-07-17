@@ -23,6 +23,8 @@ const savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 
+var currentCover;
+
 window.addEventListener('load', randomizeCover);
 homeBtn.addEventListener('click', showHome);
 randBtn.addEventListener('click', randomizeCover);
@@ -36,6 +38,8 @@ function randomizeCover() {
     covers[getRandIndex(covers)],
     titles[getRandIndex(titles)], descriptors[getRandIndex(descriptors)], descriptors[getRandIndex(descriptors)]
   );
+
+  currentCover = randCover;
 
   cover.src = randCover.cover;
   title.innerText = randCover.title;
@@ -83,6 +87,8 @@ function createBook() {
     descriptor2Field.value
   );
 
+  currentCover = customBook;
+
   showHome();
 
   cover.src = customBook.cover;
@@ -92,24 +98,12 @@ function createBook() {
 }
 
 function saveCover() {
-  savedCovers.push(randCover);
-  // let coverToSave = new Cover(cover.src, title.innerText, tagline1.innerText, tagline2.innerText);
-  //
-  // for (let i = 0; i < savedCovers.length; i++) {
-  //   if (coverToSave.cover !== savedCovers[i].cover || coverToSave.title !== savedCovers[i].title || coverToSave.tagline1 !== savedCovers[i].tagline1 || coverToSave.tagline2 !== savedCovers[i].tagline2) {
-  //     savedCovers.push(coverToSave);
-    // }
-
-    // {
-    //   savedCovers.push(coverToSave);
-    // } else if (coverToSave.title === savedCovers[i].title) {
-    //   savedCovers.push(coverToSave);
-    // } else if (coverToSave.tagline1 === savedCovers[i].tagline1) {
-    //   savedCovers.push(coverToSave);
-    // } else if (coverToSave.tagline2 === savedCovers[i].tagline2) {
-      // savedCovers.push(coverToSave);
-    // }
-  // }
+  for (let i = 0; i < savedCovers.length; i++) {
+    if (currentCover.id === savedCovers[i].id) {
+      return;
+    }
+  }
+  savedCovers.push(currentCover);
 }
 
 function getRandIndex(array) {
