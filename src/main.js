@@ -24,7 +24,7 @@ const savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 
-var currentCover;
+let currentCover;
 
 window.addEventListener('load', randomizeCover);
 homeBtn.addEventListener('click', showHome);
@@ -69,10 +69,6 @@ function showSaved() {
   savedSection.innerHTML = "";
 
   for (let i = 0; i < savedCovers.length; i++) {
-    // if (currentCover.id === savedCovers[i].id) {
-    //   return;
-    // }
-
     savedSection.insertAdjacentHTML('beforeend', `
       <span class="mini-cover">
         <img class="cover-image mini-cover" src=${savedCovers[i].cover}>
