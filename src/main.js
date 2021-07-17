@@ -31,7 +31,6 @@ savedBtn.addEventListener('click', showSaved);
 makeBtn.addEventListener('click', showMake);
 createBookBtn.addEventListener('click', createBook);
 
-
 function randomizeCover() {
   let randCover = new Cover(
     covers[getRandIndex(covers)],
@@ -93,12 +92,13 @@ function createBook() {
 }
 
 function saveCover() {
-  let coverToSave = new Cover(cover.src, title.innerText, tagline1.innerText, tagline2.innerText);
-
-  for (let i = 0; i < savedCovers.length; i++) {
-    if (coverToSave.cover !== savedCovers[i].cover || coverToSave.title !== savedCovers[i].title || coverToSave.tagline1 !== savedCovers[i].tagline1 || coverToSave.tagline2 !== savedCovers[i].tagline2) {
-      savedCovers.push(coverToSave);
-    }
+  savedCovers.push(randCover);
+  // let coverToSave = new Cover(cover.src, title.innerText, tagline1.innerText, tagline2.innerText);
+  //
+  // for (let i = 0; i < savedCovers.length; i++) {
+  //   if (coverToSave.cover !== savedCovers[i].cover || coverToSave.title !== savedCovers[i].title || coverToSave.tagline1 !== savedCovers[i].tagline1 || coverToSave.tagline2 !== savedCovers[i].tagline2) {
+  //     savedCovers.push(coverToSave);
+    // }
 
     // {
     //   savedCovers.push(coverToSave);
@@ -109,7 +109,7 @@ function saveCover() {
     // } else if (coverToSave.tagline2 === savedCovers[i].tagline2) {
       // savedCovers.push(coverToSave);
     // }
-  }
+  // }
 }
 
 function getRandIndex(array) {
