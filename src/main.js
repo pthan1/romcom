@@ -106,8 +106,8 @@ function showMake() {
   makeView.classList.remove('hidden');
 }
 
-function createBook() {
-  event.preventDefault();
+function createBook(e) {
+  e.preventDefault();
 
   covers.push(coverField.value);
   titles.push(titleField.value);
