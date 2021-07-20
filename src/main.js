@@ -78,10 +78,10 @@ function showSaved() {
 
   savedSection.innerHTML = "";
 
-  insertSavedCovers();
+  displaySavedCovers();
 }
 
-function insertSavedCovers() {
+function displaySavedCovers() {
   for (let i = 0; i < savedCovers.length; i++) {
     savedSection.insertAdjacentHTML('beforeend', `
       <button class="mini-cover" id=${savedCovers[i].id}>
@@ -93,23 +93,52 @@ function insertSavedCovers() {
       </button>
     `);
 
-    const currentCoverBtn = document.getElementById(savedCovers[i].id);
-    addDblClickEventListener(currentCoverBtn);
+    deleteOnDblClick(savedCovers[i]);
   }
 }
 
-function addDblClickEventListener(currentCoverBtn) {
+function deleteOnDblClick(savedCover) {
+  let currentCoverBtn = document.getElementById(savedCover.id.toString());
   currentCoverBtn.addEventListener('dblclick', function() {
-    for (let i = 0; i < savedCovers.length; i++) {
-      if (savedCovers[i].id === Number(currentCoverBtn.id)) {
-        savedCovers.splice(i, 1);
-      }
-    }
-
+    removeSavedCover(savedCover.id);
+    removeSavedCoverImage(savedCover.cover);
+    removeSavedTitle(savedCover.title);
+    removeSavedDescriptors(savedCover.tagline1, savedCover.tagline2);
     savedSection.removeChild(currentCoverBtn);
   });
 }
 
+function removeSavedCover(savedCoverID) {
+  for (let i = 0; i < savedCovers.length; i++) {
+    if (savedCovers[i].id === savedCoverID) {
+      return savedCovers.splice(i, 1);
+    }
+  }
+}
+
+function removeSavedCoverImage(savedCover) {
+  for (let i = 0; i < covers.length; i++) {
+    if (covers[i] === savedCover) {
+      return covers.splice(i, 1);
+    }
+  }
+}
+
+function removeSavedTitle(savedCoverTitle) {
+  for (let i = 0; i < titles.length; i++) {
+    if (titles[i] === savedCoverTitle) {
+      titles.splice(i, 1);
+    }
+  }
+}
+
+function removeSavedDescriptors(savedCoverTagline1, savedCoverTagline2) {
+  for (let i = 0; i < descriptors.length; i++) {
+    if (descriptors[i] === savedCoverTagline1 && descriptors[i + 1] === savedCoverTagline2) {
+      descriptors.splice(i, 2);
+    }
+  }
+}
 
 function showForm() {
   homeBtn.classList.remove('hidden');
@@ -128,6 +157,11 @@ function createBook(e) {
   descriptors.push(descriptor1Field.value);
   descriptors.push(descriptor2Field.value);
 
+  replaceCurrentCoverWithCustom();
+  showHome();
+}
+
+function replaceCurrentCoverWithCustom() {
   const customBook = new Cover(
     coverImageField.value,
     coverTitleField.value,
@@ -141,8 +175,6 @@ function createBook(e) {
   coverTitle.innerText = customBook.title;
   tagline1.innerText = customBook.tagline1;
   tagline2.innerText = customBook.tagline2;
-
-  showHome();
 }
 
 function saveCover() {
