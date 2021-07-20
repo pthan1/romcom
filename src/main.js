@@ -39,7 +39,6 @@ randomCoverBtn.addEventListener('click', randomizeCover);
 saveCoverBtn.addEventListener('click', saveCover);
 viewSavedBtn.addEventListener('click', showSaved);
 makeNewCoverBtn.addEventListener('click', showForm);
-
 createBookBtn.addEventListener('click', createBook);
 
 function randomizeCover() {
@@ -116,9 +115,9 @@ function removeSavedCover(savedCoverID) {
   }
 }
 
-function removeSavedCoverImage(savedCover) {
+function removeSavedCoverImage(savedCoverImage) {
   for (let i = 0; i < covers.length; i++) {
-    if (covers[i] === savedCover) {
+    if (covers[i] === savedCoverImage) {
       return covers.splice(i, 1);
     }
   }
