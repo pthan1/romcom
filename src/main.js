@@ -1,33 +1,33 @@
-let cover = document.querySelector('.cover-image');
-let title = document.querySelector('.cover-title');
-let tagline1 = document.querySelector('.tagline-1');
-let tagline2 = document.querySelector('.tagline-2');
+const coverImage = document.querySelector('.cover-image');
+const coverTitle = document.querySelector('.cover-title');
+const tagline1 = document.querySelector('.tagline-1');
+const tagline2 = document.querySelector('.tagline-2');
 
-let homeView = document.querySelector('.home-view');
-let savedView = document.querySelector('.saved-view');
-let makeView = document.querySelector('.form-view');
-let savedSection = document.querySelector('.saved-covers-section');
+const homeView = document.querySelector('.home-view');
+const savedView = document.querySelector('.saved-view');
+const formView = document.querySelector('.form-view');
+const savedSection = document.querySelector('.saved-covers-section');
 
-let homeBtn = document.querySelector('.home-button');
-let randBtn = document.querySelector('.random-cover-button');
-let saveBtn = document.querySelector('.save-cover-button');
-let viewSavedBtn = document.querySelector('.view-saved-button');
-let makeBtn = document.querySelector('.make-new-button');
+const homeBtn = document.querySelector('.home-button');
+const randomCoverBtn = document.querySelector('.random-cover-button');
+const saveCoverBtn = document.querySelector('.save-cover-button');
+const viewSavedBtn = document.querySelector('.view-saved-button');
+const makeNewCoverBtn = document.querySelector('.make-new-button');
 
-let coverField = document.getElementById('cover');
-let titleField = document.getElementById('title');
-let descriptor1Field = document.getElementById('descriptor1');
-let descriptor2Field = document.getElementById('descriptor2');
+const coverImageField = document.getElementById('cover');
+const coverTitleField = document.getElementById('title');
+const descriptor1Field = document.getElementById('descriptor1');
+const descriptor2Field = document.getElementById('descriptor2');
 
-let createBookBtn = document.querySelector('.create-new-book-button');
+const createBookBtn = document.querySelector('.create-new-book-button');
 
-let curCover;
+let currentCover;
 
 const savedCovers = [
   new Cover(
-    "http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", 
-    "Sunsets and Sorrows", 
-    "sunsets", 
+    "http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg",
+    "Sunsets and Sorrows",
+    "sunsets",
     "sorrows"
   )
 ];
@@ -35,49 +35,52 @@ const savedCovers = [
 window.addEventListener('load', randomizeCover);
 
 homeBtn.addEventListener('click', showHome);
-randBtn.addEventListener('click', randomizeCover);
-saveBtn.addEventListener('click', saveCover);
+randomCoverBtn.addEventListener('click', randomizeCover);
+saveCoverBtn.addEventListener('click', saveCover);
 viewSavedBtn.addEventListener('click', showSaved);
-makeBtn.addEventListener('click', showMake);
-
+makeNewCoverBtn.addEventListener('click', showForm);
 createBookBtn.addEventListener('click', createBook);
 
 function randomizeCover() {
-  let randCover = new Cover(
-    covers[getRandIndex(covers)],
-    titles[getRandIndex(titles)], 
-    descriptors[getRandIndex(descriptors)], 
-    descriptors[getRandIndex(descriptors)]
+  let randomCover = new Cover(
+    covers[getRandomIndex(covers)],
+    titles[getRandomIndex(titles)],
+    descriptors[getRandomIndex(descriptors)],
+    descriptors[getRandomIndex(descriptors)]
   );
 
-  curCover = randCover;
+  currentCover = randomCover;
 
-  cover.src = randCover.cover;
-  title.innerText = randCover.title;
-  tagline1.innerText = randCover.tagline1;
-  tagline2.innerText = randCover.tagline2;
+  coverImage.src = randomCover.cover;
+  coverTitle.innerText = randomCover.title;
+  tagline1.innerText = randomCover.tagline1;
+  tagline2.innerText = randomCover.tagline2;
 }
 
 function showHome() {
   homeBtn.classList.add('hidden');
-  randBtn.classList.remove('hidden');
-  saveBtn.classList.remove('hidden');
-  makeBtn.classList.remove('hidden');
+  randomCoverBtn.classList.remove('hidden');
+  saveCoverBtn.classList.remove('hidden');
+  makeNewCoverBtn.classList.remove('hidden');
   homeView.classList.remove('hidden');
   savedView.classList.add('hidden');
-  makeView.classList.add('hidden');
+  formView.classList.add('hidden');
 }
 
 function showSaved() {
   homeBtn.classList.remove('hidden');
-  randBtn.classList.add('hidden');
-  saveBtn.classList.add('hidden');
+  randomCoverBtn.classList.add('hidden');
+  saveCoverBtn.classList.add('hidden');
   homeView.classList.add('hidden');
   savedView.classList.remove('hidden');
-  makeView.classList.add('hidden');
+  formView.classList.add('hidden');
 
   savedSection.innerHTML = "";
 
+  displaySavedCovers();
+}
+
+function displaySavedCovers() {
   for (let i = 0; i < savedCovers.length; i++) {
     savedSection.insertAdjacentHTML('beforeend', `
       <button class="mini-cover" id=${savedCovers[i].id}>
@@ -89,64 +92,100 @@ function showSaved() {
       </button>
     `);
 
-    let curCoverBtn = document.getElementById(savedCovers[i].id);
-    
-    curCoverBtn.addEventListener('dblclick', function() {
-      for (let i = 0; i < savedCovers.length; i++) {
-        if (Number(savedCovers[i].id) === Number(curCoverBtn.id)) {
-          savedCovers.splice(i, 1);
-        }
-      }
-
-      savedSection.removeChild(curCoverBtn);
-    });
+    deleteOnDblClick(savedCovers[i]);
   }
 }
 
-function showMake() {
+function deleteOnDblClick(savedCover) {
+  let currentCoverBtn = document.getElementById(savedCover.id.toString());
+  currentCoverBtn.addEventListener('dblclick', function() {
+    removeSavedCover(savedCover.id);
+    removeSavedCoverImage(savedCover.cover);
+    removeSavedTitle(savedCover.title);
+    removeSavedDescriptors(savedCover.tagline1, savedCover.tagline2);
+    savedSection.removeChild(currentCoverBtn);
+  });
+}
+
+function removeSavedCover(savedCoverID) {
+  for (let i = 0; i < savedCovers.length; i++) {
+    if (savedCovers[i].id === savedCoverID) {
+      return savedCovers.splice(i, 1);
+    }
+  }
+}
+
+function removeSavedCoverImage(savedCoverImage) {
+  for (let i = 0; i < covers.length; i++) {
+    if (covers[i] === savedCoverImage) {
+      return covers.splice(i, 1);
+    }
+  }
+}
+
+function removeSavedTitle(savedCoverTitle) {
+  for (let i = 0; i < titles.length; i++) {
+    if (titles[i] === savedCoverTitle) {
+      titles.splice(i, 1);
+    }
+  }
+}
+
+function removeSavedDescriptors(savedCoverTagline1, savedCoverTagline2) {
+  for (let i = 0; i < descriptors.length; i++) {
+    if (descriptors[i] === savedCoverTagline1 && descriptors[i + 1] === savedCoverTagline2) {
+      descriptors.splice(i, 2);
+    }
+  }
+}
+
+function showForm() {
   homeBtn.classList.remove('hidden');
-  randBtn.classList.add('hidden');
-  saveBtn.classList.add('hidden');
+  randomCoverBtn.classList.add('hidden');
+  saveCoverBtn.classList.add('hidden');
   homeView.classList.add('hidden');
   savedView.classList.add('hidden');
-  makeView.classList.remove('hidden');
+  formView.classList.remove('hidden');
 }
 
 function createBook(e) {
   e.preventDefault();
 
-  covers.push(coverField.value);
-  titles.push(titleField.value);
+  covers.push(coverImageField.value);
+  titles.push(coverTitleField.value);
   descriptors.push(descriptor1Field.value);
   descriptors.push(descriptor2Field.value);
 
-  let customBook = new Cover(
-    coverField.value,
-    titleField.value,
+  replaceCurrentCoverWithCustom();
+  showHome();
+}
+
+function replaceCurrentCoverWithCustom() {
+  const customBook = new Cover(
+    coverImageField.value,
+    coverTitleField.value,
     descriptor1Field.value,
     descriptor2Field.value
   );
 
-  curCover = customBook;
+  currentCover = customBook;
 
-  cover.src = customBook.cover;
-  title.innerText = customBook.title;
+  coverImage.src = customBook.cover;
+  coverTitle.innerText = customBook.title;
   tagline1.innerText = customBook.tagline1;
   tagline2.innerText = customBook.tagline2;
-
-  showHome();
 }
 
 function saveCover() {
   for (let i = 0; i < savedCovers.length; i++) {
-    if (curCover.id === savedCovers[i].id) {
+    if (currentCover.id === savedCovers[i].id) {
       return;
     }
   }
-  
-  savedCovers.push(curCover);
+
+  savedCovers.push(currentCover);
 }
 
-function getRandIndex(array) {
+function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
