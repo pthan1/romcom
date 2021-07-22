@@ -101,7 +101,7 @@ function deleteOnDblClick(savedCover) {
   currentCoverBtn.addEventListener('dblclick', function() {
     for (let i = 0; i < savedCovers.length; i++) {
       new function(savedCoverID, savedCoverTitle, savedCoverTagline1, savedCoverTagline2) {
-        if (savedCovers[i].id === savedCoverID && covers[i] === savedCoverImage && titles[i] === savedCoverTitle && edescriptors[i] === savedCoverTagline1 && descriptors[i + 1] === savedCoverTagline2) {
+        if ((savedCovers[i].id === savedCoverID) && (covers[i] === savedCoverImage) && (titles[i] === savedCoverTitle) && (descriptors[i] === savedCoverTagline1) && (descriptors[i] === savedCoverTagline2)) {
         return savedCovers.splice(i, 1);
         }
       }
