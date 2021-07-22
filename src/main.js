@@ -99,53 +99,16 @@ function displaySavedCovers() {
 function deleteOnDblClick(savedCover) {
   let currentCoverBtn = document.getElementById(savedCover.id.toString());
   currentCoverBtn.addEventListener('dblclick', function() {
-
     for (let i = 0; i < savedCovers.length; i++) {
       new function(savedCoverID, savedCoverTitle, savedCoverTagline1, savedCoverTagline2) {
-      if (savedCovers[i].id === savedCoverID && covers[i] === savedCoverImage && titles[i] === savedCoverTitle && edescriptors[i] === savedCoverTagline1 && descriptors[i + 1] === savedCoverTagline2) {
+        if (savedCovers[i].id === savedCoverID && covers[i] === savedCoverImage && titles[i] === savedCoverTitle && edescriptors[i] === savedCoverTagline1 && descriptors[i + 1] === savedCoverTagline2) {
         return savedCovers.splice(i, 1);
+        }
       }
     }
-     }
-    // removeSavedCover(savedCover.id);
-    // removeSavedCoverImage(savedCover.cover);
-    // removeSavedTitle(savedCover.title);
-    // removeSavedDescriptors(savedCover.tagline1, savedCover.tagline2);
     savedSection.removeChild(currentCoverBtn);
   });
 }
-
-// function removeSavedCover(savedCoverID) {
-//   for (let i = 0; i < savedCovers.length; i++) {
-//     if (savedCovers[i].id === savedCoverID) {
-//       return savedCovers.splice(i, 1);
-//     }
-//   }
-// }
-
-// function removeSavedCoverImage(savedCoverImage) {
-//   for (let i = 0; i < covers.length; i++) {
-//     if (covers[i] === savedCoverImage) {
-//       return covers.splice(i, 1);
-//     }
-//   }
-// }
-
-// function removeSavedTitle(savedCoverTitle) {
-//   for (let i = 0; i < titles.length; i++) {
-//     if (titles[i] === savedCoverTitle) {
-//       titles.splice(i, 1);
-//     }
-//   }
-// }
-
-// function removeSavedDescriptors(savedCoverTagline1, savedCoverTagline2) {
-//   for (let i = 0; i < descriptors.length; i++) {
-//     if (descriptors[i] === savedCoverTagline1 && descriptors[i + 1] === savedCoverTagline2) {
-//       descriptors.splice(i, 1);
-//     }
-//   }
-// }
 
 function showForm() {
   homeBtn.classList.remove('hidden');
