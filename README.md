@@ -19,7 +19,7 @@ Users can also save covers to display in a 'View Saved Covers" view.  In the "Vi
 - Use the deploy link below or open index.html in your browser to run and view the application.
 
 ## Deploy link:
-https://anthony-iacono.github.io/romcom/
+ https://pthan1.github.io/romcom/
 
 ## Future Additions:
 - Clear input fields after submitting the form
